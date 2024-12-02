@@ -1,0 +1,18 @@
+<body>
+  <h1><%= car.name %></h1>
+
+  <% if(car.isReadyToGo){ %>
+  
+  <p>This car is ready to go.</p>
+<% } else { %>
+<p>This car is not ready to go.</p>
+
+<% } %>
+
+<form action="/car/<%= fruit._id %>?_method=DELETE" method="post">
+  <button type="submit">Delete <%= fruit.name %></button>
+</form>
+
+<a href="/car/<%= car._id %>/edit">Edit <%= car.name %></a>
+</body>
+</body>

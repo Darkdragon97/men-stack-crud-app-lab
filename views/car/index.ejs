@@ -1,0 +1,12 @@
+<body>
+  <a href="/car/new">Add New Car</a>
+  <a href="/">Home</a>
+  <h1>All Cars</h1>
+  <ul>
+    <% Cars.forEach(car => { %>
+      <a href="/car/<%= car._id %>">
+        <li><%= car.name %></li>
+      </a>
+  <% }) %>
+  </ul>
+</body>

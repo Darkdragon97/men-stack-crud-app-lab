@@ -1,0 +1,25 @@
+<body>
+  <h1>Edit <% car.name %></h1>
+
+  <form action="/car/<%= car._id %>?_method=PUT" method="POST">
+    <lebal for="name">Name:</lebal>
+    <input type="text" name="name"
+    id="name" value="<% car.name %>" >
+
+
+    <br>
+    <label for="isReadyToGo">Ready to Go?</label>
+    <input
+    type="checkbox"
+    name="isReadyToGo"
+    id="isReadyToGo"
+    <% 
+    if(car.isReadyToGo)
+    { %>
+
+      checked
+  <% } %>
+  <br>
+  <button type="submit">Update Car</button>
+  </form>
+</body>
