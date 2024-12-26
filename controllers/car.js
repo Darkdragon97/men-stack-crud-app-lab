@@ -1,4 +1,4 @@
-const Car = require('../model/car')
+const Car = require('/model/car')
 
 const router = require('express').Router()
 
