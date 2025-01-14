@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
-const carShema = new mongoose.Schema ({
-  name: String,
-  isReadyToGo: { type: Boolean, set: v => v === 'on'}
+const carSchema = new mongoose.Schema({
+  name: { type: String, required: true }, 
+  isReadyToGo: { type: Boolean, set: (v) => v === 'on' }
 })
 
-const Car = mongoose.model('Car', carShema)
+const Car = mongoose.model('Car', carSchema)
 
 module.exports = Car

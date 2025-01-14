@@ -1,17 +1,17 @@
 <body>
+  <a href="/">Home</a> <!-- Added Home link -->
+  <a href="/car">All Cars</a>
   <h1><%= car.name %></h1>
 
-  <% if(car.isReadyToGo){ %>
-  
-  <p>This car is ready to go.</p>
-<% } else { %>
-<p>This car is not ready to go.</p>
+  <% if (car.isReadyToGo) { %>
+    <p>This car is ready to go.</p>
+  <% } else { %>
+    <p>This car is not ready to go.</p>
+  <% } %>
 
-<% } %>
+  <form action="/car/<%= car._id %>?_method=DELETE" method="POST">
+    <button type="submit">Delete <%= car.name %></button>
+  </form>
 
-<form action="/car/<%= car._id %>?_method=DELETE" method="post">
-  <button type="submit">Delete <%= car.name %></button>
-</form>
-
-<a href="/car/<%= car._id %>/edit">Edit <%= car.name %></a>
+  <a href="/car/<%= car._id %>/edit">Edit <%= car.name %></a>
 </body>

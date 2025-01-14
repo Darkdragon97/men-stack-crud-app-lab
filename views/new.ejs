@@ -1,22 +1,19 @@
 <body>
+  <a href="/">Home</a> <!-- Added Home link -->
   <a href="/car">All Cars</a>
-  <h1>Create a new Car</h1>
+  <h1>Create a New Car</h1>
 
   <form action="/car" method="POST">
-    <lebal for="name">Name:</lebal>
-    <input type="text" name="name"
-    id="name"  >
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name" required />
 
+    <br />
 
-    <br>
     <label for="isReadyToGo">Ready to Go?</label>
-    <input
-    type="checkbox"
-    name="isReadyToGo"
-    id="isReadyToGo" />
-    
-  <br>
-  
-  <button type="submit">Add Car</button>
+    <input type="checkbox" name="isReadyToGo" id="isReadyToGo" />
+
+    <br />
+
+    <button type="submit">Add Car</button>
   </form>
 </body>

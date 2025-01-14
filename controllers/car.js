@@ -1,51 +1,70 @@
-const Car = require('/model/car')
-
-const router = require('express').Router()
+const Car = require('../model/car');
+const router = require('express').Router();
 
 router.get('/car', async (req, res) => {
-  const car = await Car.find()
-  res.render('car/index.ejs', {
-    car
-  })
-})
+  try {
+    const cars = await Car.find();
+    res.render('car/index.ejs', { cars });
+  } catch (error) {
+    console.error('Error fetching cars:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 router.get('/car/new', (req, res) => {
-  router.get('cars/new.ejs')
-})
+  res.render('new.ejs'); // Fixed rendering
+});
 
 router.post('/car', async (req, res) => {
-  if (req.body.isReadyToGo === 'on') {
-    req.body.isReadyToGo = true
-  } else {
-    req.body.isReadyToGo = false
+  try {
+    req.body.isReadyToGo = req.body.isReadyToGo === 'on';
+    await Car.create(req.body);
+    res.redirect('/car');
+  } catch (error) {
+    console.error('Error creating car:', error);
+    res.status(400).send('Bad Request');
   }
-  await Car.create(req.body)
-  res.redirect('/car')
-})
+});
 
 router.get('/car/:carId', async (req, res) => {
-  const car = await Car.findById(req.params.carId)
-  res.render('car/show.ejs', { Car })
-})
+  try {
+    const car = await Car.findById(req.params.carId);
+    res.render('car/show.ejs', { car });
+  } catch (error) {
+    console.error('Error fetching car:', error);
+    res.status(404).send('Car Not Found');
+  }
+});
 
 router.delete('/car/:carId', async (req, res) => {
-  await Car.findByIdAndDelete(req.params.carId)
-  res.redirect('/car')
-})
+  try {
+    await Car.findByIdAndDelete(req.params.carId);
+    res.redirect('/car');
+  } catch (error) {
+    console.error('Error deleting car:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 router.get('/car/:carId/edit', async (req, res) => {
-  const car = await Car.findById(req.params.carId)
-  res.render('Car/edit.ejs', { car })
-})
-
-router.put("/car/:carId", async (req, res) => {
-  if(req.body.isReadyToGo === "on"){
-    req.body.isReadyToGo = true
-  } else {
-    req.body.isReadyToGo = false
+  try {
+    const car = await Car.findById(req.params.carId);
+    res.render('car/edit.ejs', { car });
+  } catch (error) {
+    console.error('Error fetching car for edit:', error);
+    res.status(404).send('Car Not Found');
   }
-  await Car.findByIdAndUpdate(req.params.carId, req.body)
-  res.redirect(`/Car/${req.params.carId}`)
-})
+});
 
-module.exports = router
+router.put('/car/:carId', async (req, res) => {
+  try {
+    req.body.isReadyToGo = req.body.isReadyToGo === 'on';
+    await Car.findByIdAndUpdate(req.params.carId, req.body);
+    res.redirect(`/car/${req.params.carId}`);
+  } catch (error) {
+    console.error('Error updating car:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+module.exports = router;
